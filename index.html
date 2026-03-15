@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aditya Muley — Work Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #faf9f6;
+    --white: #ffffff;
+    --text: #1a1a1a;
+    --muted: #888;
+    --border: #e8e4dc;
+    --coral:   #ff6b52;
+    --sky:     #3d9be9;
+    --sage:    #4caf82;
+    --amber:   #f0a500;
+    --violet:  #8b6fe8;
+    --coral-bg:  #fff3f0;
+    --sky-bg:    #eff6ff;
+    --sage-bg:   #f0faf5;
+    --amber-bg:  #fffbf0;
+    --violet-bg: #f5f2ff;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .wrapper {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 52px 24px 80px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    margin-bottom: 52px;
+    opacity: 0;
+    animation: rise 0.5s ease 0.05s forwards;
+  }
+  .header h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(26px, 5vw, 38px);
+    font-weight: 600;
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+  .designation {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--coral);
+    background: var(--coral-bg);
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    margin-bottom: 52px;
+    opacity: 0;
+    animation: rise 0.5s ease forwards;
+  }
+  .s1{animation-delay:0.15s} .s2{animation-delay:0.25s}
+  .s3{animation-delay:0.35s} .s4{animation-delay:0.45s}
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .section-label .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .section-label h2 { font-family: 'Lora', serif; font-size: 19px; font-weight: 500; }
+  .section-label .line { flex: 1; height: 1px; background: var(--border); }
+
+  /* ── COMPANY BLOCK ── */
+  .company-block { margin-bottom: 28px; }
+  .company-tag {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 11px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+
+  /* ── CONTEXT BOX ── */
+  .context-box {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 15px 18px;
+    margin-bottom: 10px;
+    font-size: 13.5px;
+    color: #444;
+    line-height: 1.7;
+  }
+  .context-box strong { color: var(--text); font-weight: 600; }
+
+  /* ── LINK CARDS ── */
+  .cards { display: flex; flex-direction: column; gap: 6px; }
+
+  .card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+  }
+  .card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.06); transform: translateY(-1px); }
+  .card.coral:hover  { border-color: var(--coral); }
+  .card.sky:hover    { border-color: var(--sky); }
+  .card.sage:hover   { border-color: var(--sage); }
+  .card.violet:hover { border-color: var(--violet); }
+
+  .card-emoji {
+    font-size: 16px; flex-shrink: 0; width: 33px; height: 33px;
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  }
+  .card-body { flex: 1; min-width: 0; }
+  .card-title {
+    font-size: 13px; font-weight: 500; color: var(--text);
+    line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .card-sub { font-size: 11.5px; color: var(--muted); margin-top: 1px; }
+  .card-arrow { font-size: 13px; color: #ccc; flex-shrink: 0; transition: color 0.15s; }
+  .card:hover .card-arrow { color: #999; }
+
+  /* ── STAT GRID (for LinkedIn sections) ── */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .stat-grid.three { grid-template-columns: repeat(3, 1fr); }
+
+  .stat-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 12px;
+    text-align: center;
+  }
+  .stat-card .sc-num {
+    font-family: 'Lora', serif;
+    font-size: 20px;
+    font-weight: 600;
+    display: block;
+    line-height: 1;
+    margin-bottom: 5px;
+  }
+  .stat-card .sc-label {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  /* ── POST ITEMS (LinkedIn narrative cards) ── */
+  .post-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .post-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 14px;
+    align-items: start;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+  }
+  .post-item:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.06); transform: translateY(-1px); }
+  .post-item.violet:hover { border-color: var(--violet); }
+  .post-item.coral:hover  { border-color: var(--coral); }
+
+  .post-num {
+    font-family: 'Lora', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #ddd;
+    line-height: 1.1;
+    min-width: 22px;
+  }
+  .post-body { flex: 1; }
+  .post-title {
+    font-size: 13.5px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    line-height: 1.4;
+    color: var(--text);
+  }
+  .post-desc {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.65;
+  }
+  .post-desc strong { color: var(--text); font-weight: 600; }
+  .post-arrow {
+    font-size: 13px;
+    color: #ccc;
+    padding-top: 3px;
+    transition: color 0.15s;
+    flex-shrink: 0;
+  }
+  .post-item:hover .post-arrow { color: #999; }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px;
+    opacity: 0; animation: rise 0.5s ease 0.55s forwards;
+  }
+  .footer-note { font-size: 12px; color: var(--muted); }
+  .footer-tag {
+    font-size: 12px; font-weight: 600; color: var(--violet);
+    background: var(--violet-bg); padding: 5px 14px; border-radius: 20px;
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 580px) {
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .stat-grid.three { grid-template-columns: repeat(2, 1fr); }
+    .card-title { white-space: normal; }
+    .post-item { grid-template-columns: auto 1fr auto; gap: 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Aditya Muley</h1>
+    <span class="designation">Content &amp; Digital Marketing Manager</span>
+  </div>
+
+  <!-- ══════════════ BLOG POSTS ══════════════ -->
+  <div class="section s1">
+    <div class="section-label">
+      <div class="dot" style="background:var(--coral)"></div>
+      <h2>Blog posts</h2>
+      <div class="line"></div>
+    </div>
+
+    <!-- Prodigal SEO -->
+    <div class="company-block">
+      <span class="company-tag" style="background:var(--coral-bg);color:var(--coral)">Prodigal</span>
+      <div class="context-box">
+        These blogs rank on the first page for the keywords <strong>"BNPL delinquency"</strong> and <strong>"delinquency rates 2025,"</strong> and they also show up in Generative AI searches (GEO).
+      </div>
+      <div class="cards">
+        <a href="https://www.prodigaltech.com/blog/why-bnpl-is-now-the-fastest-growing-delinquency-problem-in-consumer-lending" target="_blank" class="card coral">
+          <div class="card-emoji" style="background:var(--coral-bg)">📈</div>
+          <div class="card-body">
+            <div class="card-title">Why BNPL is now the fastest-growing delinquency problem in consumer lending</div>
+            <div class="card-sub">prodigaltech.com</div>
+          </div>
+          <span class="card-arrow">→</span>
+        </a>
+        <a href="https://www.prodigaltech.com/blog/us-delinquency-rates-are-climbing-in-2025-across-key-consumer-credit-segments" target="_blank" class="card coral">
+          <div class="card-emoji" style="background:var(--coral-bg)">📊</div>
+          <div class="card-body">
+            <div class="card-title">U.S. delinquency rates are climbing in 2025 across key consumer credit segments</div>
+            <div class="card-sub">prodigaltech.com</div>
+          </div>
+          <span class="card-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Prodigal Trend Series -->
+    <div class="company-block">
+      <span class="company-tag" style="background:var(--coral-bg);color:var(--coral)">Prodigal — trend specific (sales material) blogs</span>
+      <div class="context-box">
+        These blogs are prepared as shareable content for the sales and customer success teams to support cross-sell and upsell efforts. I also created the graphics for the blogs with <strong>Claude Code.</strong>
+      </div>
+      <div class="cards">
+        <a href="https://www.prodigaltech.com/blog/debt-collection-agency-fees-and-the-portfolio-coverage-gap" target="_blank" class="card coral">
+          <div class="card-emoji" style="background:var(--coral-bg)">💼</div>
+          <div class="card-body">
+            <div class="card-title">Your collection agency is working your best accounts. Who is working the rest?</div>
+            <div class="card-sub">prodigaltech.com</div>
+          </div>
+          <span class="card-arrow">→</span>
+        </a>
+        <a href="https://www.prodigaltech.com/blog/why-most-ai-agents-fail-in-production" target="_blank" class="card coral">
+          <div class="card-emoji" style="background:var(--coral-bg)">🤖</div>
+          <div class="card-body">
+            <div class="card-title">Why most AI agents fail in production? The compounding error problem</div>
+            <div class="card-sub">prodigaltech.com</div>
+          </div>
+          <span class="card-arrow">→</span>
+        </a>
+        <a href="https://www.prodigaltech.com/blog/tax-season-2026-what-changed-whos-getting-bigger-refunds-and-why-it-matters" target="_blank" class="card coral">
+          <div class="card-emoji" style="background:var(--coral-bg)">💰</div>
+          <div class="card-body">
+            <div class="card-title">Tax season 2026: What changed, who's getting bigger refunds, and why it matters</div>
+            <div class="card-sub">prodigaltech.com</div>
+          </div>
+          <span class="card-arrow">→</span>
+        </a>
+        <a href="https://www.prodigaltech.com/blog/tax-deduction-list-for-2026-every-deduction-and-credit-you-need-to-know" target="_blank" class="card coral">
+          <div class="card-emoji" style="background:var(--coral-bg)">📋</div>
+          <div class="card-body">
+            <div class="card-title">Tax deduction list for 2026: Every deduction and credit you need to know</div>
+            <div class="card-sub">prodigaltech.com</div>
+          </div>
+          <span class="card-arrow">→</span>
+        </a>
+        <a href="https://www.prodigaltech.com/blog/tax-refund-status-2026-time-your-collection-strategy-when-refunds-arrive" target="_blank" class="card coral">
+          <div class="card-emoji" style="background:var(--coral-bg)">⏱️</div>
+          <div class="card-body">
+            <div class="card-title">Tax refund status 2026: Time your collection strategy when refunds arrive</div>
+            <div class="card-sub">prodigaltech.com</div>
+          </div>
+          <span class="card-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- HotWax Commerce -->
+    <div class="company-block">
+      <span class="company-tag" style="background:var(--sky-bg);color:var(--sky)">HotWax Commerce</span>
+      <div class="context-box">
+        These blogs rank on the first/second page for the keywords <strong>"Manhattan OMS alternative,"</strong> <strong>"Same-day BOPIS delivery,"</strong> and <strong>"Omnichannel inventory management,"</strong> respectively.
+      </div>
+      <div class="cards">
+        <a href="https://www.hotwax.co/blog/exploring-the-alternatives-to-manhattan-oms-in-2024" target="_blank" class="card sky">
+          <div class="card-emoji" style="background:var(--sky-bg)">🏬</div>
+          <div class="card-body">
+            <div class="card-title">Exploring the Alternatives to Manhattan OMS in 2024</div>
+            <div class="card-sub">hotwax.co</div>
+          </div>
+          <span class="card-arrow">→</span>
+        </a>
+        <a href="https://www.hotwax.co/blog/4-things-to-consider-when-offering-same-day-bopis-delivery" target="_blank" class="card sky">
+          <div class="card-emoji" style="background:var(--sky-bg)">🚚</div>
+          <div class="card-body">
+            <div class="card-title">4 Things to consider when offering Same-Day BOPIS delivery</div>
+            <div class="card-sub">hotwax.co</div>
+          </div>
+          <span class="card-arrow">→</span>
+        </a>
+        <a href="https://www.hotwax.co/blog/4-key-principles-of-omnichannel-inventory-management" target="_blank" class="card sky">
+          <div class="card-emoji" style="background:var(--coral-bg)">📦</div>
+          <div class="card-body">
+            <div class="card-title">4 Key principles of omnichannel inventory management</div>
+            <div class="card-sub">hotwax.co</div>
+          </div>
+          <span class="card-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ THOUGHT LEADERSHIP ══════════════ -->
+  <div class="section s2">
+    <div class="section-label">
+      <div class="dot" style="background:var(--sage)"></div>
+      <h2>Thought leadership articles</h2>
+      <div class="line"></div>
+    </div>
+    <div class="company-block">
+      <span class="company-tag" style="background:var(--sky-bg);color:var(--sky)">HotWax Commerce</span>
+      <div class="context-box">
+        Built on the CEO's thought leadership, insights from our original podcast conversations with industry guests, and credible external sources, these LinkedIn articles drove <strong>2,000+ impressions</strong> and meaningful audience engagement.
+      </div>
+      <div class="cards">
+        <a href="https://www.linkedin.com/pulse/how-cotopaxi-leveraging-sustainability-technology-business-anil-patel-m70xf/" target="_blank" class="card sage">
+          <div class="card-emoji" style="background:var(--sage-bg)">🌿</div>
+          <div class="card-body">
+            <div class="card-title">How is Cotopaxi leveraging sustainability and technology in business?</div>
+            <div class="card-sub">linkedin.com/pulse</div>
+          </div>
+          <span class="card-arrow">→</span>
+        </a>
+        <a href="https://www.linkedin.com/pulse/how-can-circular-economy-revolutionize-fashion-industry-anil-patel-1vgof/" target="_blank" class="card sage">
+          <div class="card-emoji" style="background:var(--sage-bg)">♻️</div>
+          <div class="card-body">
+            <div class="card-title">How can a circular economy revolutionize the fashion industry?</div>
+            <div class="card-sub">linkedin.com/pulse</div>
+          </div>
+          <span class="card-arrow">→</span>
+        </a>
+        <a href="https://www.linkedin.com/pulse/what-role-does-ai-play-shaping-future-ecommerce-anil-patel-8erwf/" target="_blank" class="card sage">
+          <div class="card-emoji" style="background:var(--sage-bg)">🤖</div>
+          <div class="card-body">
+            <div class="card-title">What role does AI play in shaping the future of eCommerce?</div>
+            <div class="card-sub">linkedin.com/pulse</div>
+          </div>
+          <span class="card-arrow">→</span>
+        </a>
+        <a href="https://www.linkedin.com/pulse/how-essential-sustainability-what-role-does-play-modern-anil-patel-wf20f/" target="_blank" class="card sage">
+          <div class="card-emoji" style="background:var(--sage-bg)">🌱</div>
+          <div class="card-body">
+            <div class="card-title">How essential is sustainability and what role does it play in modern retail?</div>
+            <div class="card-sub">linkedin.com/pulse</div>
+          </div>
+          <span class="card-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ LINKEDIN COMPANY POSTS ══════════════ -->
+  <div class="section s3">
+    <div class="section-label">
+      <div class="dot" style="background:var(--amber)"></div>
+      <h2>LinkedIn social posts</h2>
+      <div class="line"></div>
+    </div>
+
+    <div class="company-block">
+      <span class="company-tag" style="background:var(--coral-bg);color:var(--coral)">Prodigal</span>
+
+      <!-- Aggregate stats across all 3 posts -->
+      <div class="stat-grid" style="margin-bottom:20px">
+        <div class="stat-card">
+          <span class="sc-num counter" data-target="14332" style="color:var(--coral)">0</span>
+          <span class="sc-label">peak organic<br>impressions</span>
+        </div>
+        <div class="stat-card">
+          <span class="sc-num" style="color:var(--amber)">35.79%</span>
+          <span class="sc-label">highest CTR<br>on a post</span>
+        </div>
+        <div class="stat-card">
+          <span class="sc-num counter" data-target="670" style="color:var(--sage)">0</span>
+          <span class="sc-label">total reactions<br>across 3 posts</span>
+        </div>
+        <div class="stat-card">
+          <span class="sc-num" style="color:var(--violet)">37.53%</span>
+          <span class="sc-label">peak engagement<br>rate</span>
+        </div>
+      </div>
+
+      <!-- Post 1 -->
+      <div class="post-list">
+        <a href="https://www.linkedin.com/posts/prodigaltech_aihackathon-iitb-aiagents-activity-7383508906540609536-Nd-l" target="_blank" class="post-item coral">
+          <div class="post-num">1</div>
+          <div class="post-body">
+            <div class="post-title">AI Hackathon at IIT-Bombay</div>
+            <div class="post-desc">Created a post on the <strong>AI Hackathon</strong> we organized at <strong>IIT-Bombay.</strong> The post received <strong>14,332</strong> organic impressions, <strong>5,129</strong> clicks, a <strong>35.79%</strong> CTR, <strong>220</strong> reactions, and a <strong>37.53%</strong> engagement rate.</div>
+          </div>
+          <div class="post-arrow">→</div>
+        </a>
+        <a href="https://www.linkedin.com/posts/sangramraje_today-openai-sent-us-a-plaque-for-crossing-activity-7391415698247430144-bqi7" target="_blank" class="post-item coral">
+          <div class="post-num">2</div>
+          <div class="post-body">
+            <div class="post-title">OpenAI plaque — 10 billion tokens</div>
+            <div class="post-desc">Our company received a plaque from <strong>OpenAI</strong> for crossing <strong>10 billion tokens.</strong> Created a simple, relatable post on the same, which received <strong>344</strong> reactions.</div>
+          </div>
+          <div class="post-arrow">→</div>
+        </a>
+        <a href="https://www.linkedin.com/posts/sangramraje_for-a-long-time-the-path-was-to-get-into-activity-7376201237962227713-_wOr" target="_blank" class="post-item coral">
+          <div class="post-num">3</div>
+          <div class="post-body">
+            <div class="post-title">Why 2026 could be a turning point for Indian startups</div>
+            <div class="post-desc">Created a post during the news around <strong>H1B visa rules.</strong> I captured our CTO's thoughts and shared them in a post, which received <strong>106</strong> reactions.</div>
+          </div>
+          <div class="post-arrow">→</div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ PERSONAL LINKEDIN ══════════════ -->
+  <div class="section s4">
+    <div class="section-label">
+      <div class="dot" style="background:var(--violet)"></div>
+      <h2>LinkedIn social posts (personal profile)</h2>
+      <div class="line"></div>
+    </div>
+
+    <div class="company-block">
+      <div class="context-box" style="margin-bottom:20px">
+        I'm passionate about movies and sports, so I found a way to reflect that passion in my content through the same lens.
+      </div>
+
+      <!-- Average stats across 4 personal posts -->
+      <div class="stat-grid three" style="margin-bottom:20px">
+        <div class="stat-card">
+          <span class="sc-num" style="color:var(--violet)">~2,194</span>
+          <span class="sc-label">avg. organic<br>impressions</span>
+        </div>
+        <div class="stat-card">
+          <span class="sc-num counter" data-target="8777" style="color:var(--amber)">0</span>
+          <span class="sc-label">total impressions<br>across 4 posts</span>
+        </div>
+        <div class="stat-card">
+          <span class="sc-num counter" data-target="4" style="color:var(--sage)">0</span>
+          <span class="sc-label">posts across<br>topics I love</span>
+        </div>
+      </div>
+
+      <div class="post-list">
+        <a href="https://www.linkedin.com/posts/adityamuley-adm_socialmedia-marketing-seo-activity-7227560704373866496-D0Vl" target="_blank" class="post-item violet">
+          <div class="post-num">1</div>
+          <div class="post-body">
+            <div class="post-title">HubSpot Academy — online course completion</div>
+            <div class="post-desc">Did a post on completing an online course from <strong>HubSpot Academy,</strong> which also received a comment from HubSpot Academy. The post generated over <strong>3,648</strong> organic impressions.</div>
+          </div>
+          <div class="post-arrow">→</div>
+        </a>
+        <a href="https://www.linkedin.com/posts/adimuley_storytelling-brandmarketing-advertising-activity-7348248281459650561-xbwn" target="_blank" class="post-item violet">
+          <div class="post-num">2</div>
+          <div class="post-body">
+            <div class="post-title">Nostalgia marketing — a late-night conversation</div>
+            <div class="post-desc">A late-night conversation with a friend inspired a post on <strong>nostalgia marketing.</strong> The post generated <strong>2,793</strong> organic impressions.</div>
+          </div>
+          <div class="post-arrow">→</div>
+        </a>
+        <a href="https://www.linkedin.com/posts/adityamuley-adm_how-useful-has-been-chatgpt-activity-7212407166710779905-AfAd" target="_blank" class="post-item violet">
+          <div class="post-num">3</div>
+          <div class="post-body">
+            <div class="post-title">My first ChatGPT experience — with a Tom Cruise twist</div>
+            <div class="post-desc">Shared my initial experience with <strong>ChatGPT,</strong> before GPT-5 and everything. I added a fun twist by tying it to Tom Cruise's filmography. The post received <strong>1,360</strong> organic impressions. P.S. I'm a Claude (Anthropic) advocate now.</div>
+          </div>
+          <div class="post-arrow">→</div>
+        </a>
+        <a href="https://www.linkedin.com/posts/adimuley_sportsmarketing-starsports-jiocinema-activity-7313508082439925760-VvB_" target="_blank" class="post-item violet">
+          <div class="post-num">4</div>
+          <div class="post-body">
+            <div class="post-title">Cricket fandom as a full-time job — sports marketing</div>
+            <div class="post-desc">Turned my support for one of the biggest cricket franchises in India into a post, and shared how it feels like a full-time job. The post received <strong>1,133</strong> organic impressions.</div>
+          </div>
+          <div class="post-arrow">→</div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span class="footer-note">Built with Claude Code</span>
+    <span class="footer-tag">✦ vibe coded by Aditya</span>
+  </div>
+
+</div>
+<script>
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.target);
+    const duration = 1200;
+    const start = performance.now();
+    const run = (now) => {
+      const t = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.floor(ease * target).toLocaleString();
+      if (t < 1) requestAnimationFrame(run);
+    };
+    requestAnimationFrame(run);
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { animateCounter(e.target); io.unobserve(e.target); } });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.counter').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
