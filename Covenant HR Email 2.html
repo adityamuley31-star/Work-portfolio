@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>MyScout</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0;
+    background-color: #eef0f4;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  .wrap { width: 100%; background: #eef0f4; padding: 48px 16px; }
+
+  .card {
+    max-width: 560px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.10);
+  }
+
+  .stripe { height: 4px; background: linear-gradient(90deg, #0ea5e9, #2563eb); }
+
+  .logobar { padding: 28px 40px 0; }
+  .logo {
+    font-size: 11px; font-weight: 800;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: #0ea5e9;
+  }
+
+  .hero { padding: 36px 40px 0; }
+  .hero h1 {
+    font-size: 32px; font-weight: 800;
+    line-height: 1.18; color: #0f172a;
+    margin-bottom: 20px; letter-spacing: -0.8px;
+  }
+  .hero h1 span { color: #0ea5e9; }
+  .hero p { font-size: 16px; line-height: 1.75; color: #475569; margin-bottom: 14px; }
+  .hero p strong { color: #0f172a; font-weight: 700; }
+
+  /* Profile band */
+  .profile-band {
+    margin: 32px 0 0;
+    background: #0f172a;
+    padding: 28px 40px;
+  }
+
+  .band-label {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 2.5px; text-transform: uppercase;
+    color: #334155; margin-bottom: 14px;
+  }
+
+  .gold-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: #1c1500; border: 1px solid #3d2e00;
+    border-radius: 20px; padding: 4px 12px;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: #f59e0b; margin-bottom: 20px;
+  }
+
+  .profile-row { display: flex; align-items: center; gap: 20px; margin-bottom: 20px; }
+  .profile-donut { position: relative; width: 84px; height: 84px; flex-shrink: 0; }
+  .profile-donut svg { width: 84px; height: 84px; }
+  .profile-center {
+    position: absolute; top: 0; left: 0;
+    width: 84px; height: 84px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+  }
+  .profile-num { font-size: 24px; font-weight: 800; color: #ffffff; line-height: 1; }
+  .profile-denom { font-size: 11px; color: #475569; margin-top: 2px; }
+
+  .profile-right h3 { font-size: 18px; font-weight: 700; color: #f1f5f9; margin-bottom: 5px; }
+  .profile-right p { font-size: 13px; color: #475569; line-height: 1.5; }
+
+  .verdict {
+    background: #0a0f1e; border-radius: 8px;
+    padding: 14px 16px; border: 1px solid #1e293b;
+  }
+  .verdict-label {
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: #334155; margin-bottom: 6px;
+  }
+  .verdict-text { font-size: 13px; color: #64748b; line-height: 1.6; }
+
+  /* Body copy */
+  .copy { padding: 32px 40px 0; }
+  .copy p { font-size: 16px; line-height: 1.75; color: #475569; margin-bottom: 14px; }
+  .copy p strong { color: #0f172a; font-weight: 700; }
+
+  /* Comparison */
+  .comp-wrap { margin: 28px 40px; }
+
+  .comp-heading {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: #94a3b8; margin-bottom: 14px; text-align: center;
+  }
+
+  .comp-grid { display: flex; gap: 12px; }
+
+  .comp-col { flex: 1; border-radius: 12px; padding: 18px 16px; }
+  .comp-col.without { background: #fff1f2; border: 1px solid #fecdd3; }
+  .comp-col.with { background: #f0f9ff; border: 1px solid #bae6fd; }
+
+  .comp-head {
+    font-size: 11px; font-weight: 800;
+    letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid;
+  }
+  .comp-head.without { color: #e11d48; border-color: #fecdd3; }
+  .comp-head.with { color: #0ea5e9; border-color: #bae6fd; }
+
+  .comp-item {
+    font-size: 13px; line-height: 1.5;
+    margin-bottom: 9px; padding-left: 18px; position: relative;
+  }
+  .comp-item::before { position: absolute; left: 0; top: 0; font-size: 13px; }
+  .comp-item.without { color: #9f1239; }
+  .comp-item.without::before { content: '✕'; color: #e11d48; }
+  .comp-item.with { color: #075985; }
+  .comp-item.with::before { content: '✓'; color: #0ea5e9; }
+
+  /* Pull */
+  .pull {
+    margin: 0 40px 32px;
+    background: #f0f9ff;
+    border-left: 4px solid #0ea5e9;
+    border-radius: 0 12px 12px 0;
+    padding: 22px 26px;
+  }
+  .pull p { font-size: 18px; font-weight: 700; line-height: 1.45; color: #0f172a; }
+  .pull p span { color: #0ea5e9; }
+
+  /* CTA */
+  .cta-wrap { padding: 8px 40px 42px; text-align: center; }
+  .cta-context { font-size: 13px; color: #94a3b8; margin-bottom: 18px; line-height: 1.5; }
+  .cta-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #0ea5e9, #2563eb);
+    color: #ffffff; font-size: 16px; font-weight: 800;
+    padding: 17px 48px; border-radius: 10px;
+    text-decoration: none; letter-spacing: 0.1px;
+  }
+  .cta-note { font-size: 12px; color: #cbd5e1; margin-top: 12px; }
+
+  @media (max-width: 560px) {
+    .wrap { padding: 20px 10px; }
+    .logobar { padding: 24px 24px 0; }
+    .hero { padding: 28px 24px 0; }
+    .hero h1 { font-size: 26px; }
+    .profile-band { padding: 24px 24px; }
+    .copy { padding: 28px 24px 0; }
+    .comp-wrap { margin: 24px 24px; }
+    .comp-grid { flex-direction: column; }
+    .pull { margin: 0 24px 28px; }
+    .cta-wrap { padding: 8px 24px 36px; }
+    .cta-btn { display: block; padding: 17px 24px; }
+    .profile-row { flex-direction: column; align-items: flex-start; gap: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="card">
+
+  <div class="stripe"></div>
+  <div class="logobar"><div class="logo">MyScout</div></div>
+
+  <div class="hero">
+    <h1>The job market was<br>never designed to be<br><span>fair to candidates.</span></h1>
+    <p>Some people go into a job search with career coaches, alumni networks, and someone on the inside who can flag their profile. Most people go in alone, guessing whether they're even qualified for what they're targeting. <strong>That gap has always existed. What's new is that it doesn't have to.</strong></p>
+  </div>
+
+  <!-- Profile band -->
+  <div class="profile-band">
+    <div class="band-label">How recruiters actually see you</div>
+    <div class="gold-badge">⭐ Gold Profile</div>
+    <div class="profile-row">
+      <div class="profile-donut">
+        <svg viewBox="0 0 84 84">
+          <circle cx="42" cy="42" r="34" fill="none" stroke="#1e293b" stroke-width="7"/>
+          <circle cx="42" cy="42" r="34" fill="none"
+            stroke="url(#pg2)" stroke-width="7"
+            stroke-dasharray="214" stroke-dashoffset="37"
+            stroke-linecap="round" transform="rotate(-90 42 42)"/>
+          <defs>
+            <linearGradient id="pg2" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#818cf8"/>
+              <stop offset="100%" style="stop-color:#38bdf8"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="profile-center">
+          <span class="profile-num">84</span>
+          <span class="profile-denom">/ 100</span>
+        </div>
+      </div>
+      <div class="profile-right">
+        <h3>Profile Score</h3>
+        <p>This is what a recruiter sees the moment they find your profile. Not what you think they see.</p>
+      </div>
+    </div>
+    <div class="verdict">
+      <div class="verdict-label">Recruiter Verdict</div>
+      <div class="verdict-text">Strong background, metrics-driven experience, good certifications. Adding specific achievements to the summary and sharpening the skills section would push this into top-tier territory.</div>
+    </div>
+  </div>
+
+  <div class="copy">
+    <p><strong>MyScout</strong> puts that information in your hands before you apply, not after the damage is done.</p>
+    <p>Most candidates go through an entire job search without ever seeing what a recruiter actually thinks of their profile. They guess, they hope, and they take the silence personally. Having this kind of clarity upfront changes how you search, what you apply to, and how you show up when you do.</p>
+  </div>
+
+  <div class="comp-wrap">
+    <div class="comp-heading">The difference in practice</div>
+    <div class="comp-grid">
+      <div class="comp-col without">
+        <div class="comp-head without">Applying blind</div>
+        <div class="comp-item without">Send 80 applications</div>
+        <div class="comp-item without">Hear back from 3</div>
+        <div class="comp-item without">Never understand why</div>
+        <div class="comp-item without">Lose confidence. Repeat.</div>
+      </div>
+      <div class="comp-col with">
+        <div class="comp-head with">With MyScout</div>
+        <div class="comp-item with">Know your fit before applying</div>
+        <div class="comp-item with">Fix gaps before they cost you</div>
+        <div class="comp-item with">Walk into interviews prepared</div>
+        <div class="comp-item with">Apply fewer, land faster</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pull">
+    <p>A fresher and a 20-year veteran both deserve to know where they actually stand. <span><strong>MyScout</strong></span> gives both of them that answer.</p>
+  </div>
+
+  <div class="cta-wrap">
+    <p class="cta-context">Free to start. Your profile score in under 5 minutes.</p>
+    <a href="https://www.covenant-hr.com/myscout" class="cta-btn">Stop guessing. Start knowing. →</a>
+    <p class="cta-note">No credit card. No setup.</p>
+  </div>
+
+</div>
+</div>
+</body>
+</html>
